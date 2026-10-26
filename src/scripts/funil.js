@@ -1,8 +1,10 @@
 /* ============================================================
-   MODO FUNIL — ativado SOMENTE quando a URL traz ?m=<palavra>.
-   Sem o parametro, nada aqui roda e a home fica identica.
+   MODO FUNIL — ativado quando a URL traz ?m=<palavra> ou quando
+   MATERIAL_PADRAO (src/config.js) esta preenchido. Com MATERIAL_PADRAO
+   vazio e sem o parametro, nada aqui roda e a home fica identica.
    ============================================================ */
 import { buscarMaterial } from '../data/materiais.js';
+import { MATERIAL_PADRAO } from '../config.js';
 
 export const SEG_CONSTRUTORA = 'Construtora/incorporadora';
 const VERBAS_QUALIFICAM = ['R$2–10 mil','Acima de R$10 mil'];
@@ -24,10 +26,11 @@ export const TEXTO_SEGMENTO = {
   marketing:   'marketing/outro'   // slug antigo: links ja enviados com s=marketing
 };
 
-/** Le ?m= da URL. Retorna null quando o parametro nao existe. */
+/** Le ?m= da URL; sem ele, usa MATERIAL_PADRAO. Null quando nao ha nenhum. */
 export function palavraDaUrl(){
   const m = new URLSearchParams(location.search).get('m');
-  return (m && m.trim()) ? m.trim() : null;
+  if(m && m.trim()) return m.trim();
+  return MATERIAL_PADRAO ? String(MATERIAL_PADRAO).trim() || null : null;
 }
 
 /** Captura os 5 UTMs, sempre presentes no payload (vazios quando ausentes). */

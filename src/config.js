@@ -23,3 +23,8 @@ export const MAKE      = 'https://hook.us2.make.com/pybg5rima742nx5l2brpvj7cfe9o
 export const RESPOSTAS_NO_FORMSPREE = false;
 
 export const ORIGEM = 'funil-ia';
+
+// Material aberto quando o link chega sem ?m= (ex.: o link puro da Vercel
+// mandado ao lead). Vazio ('') volta ao comportamento original: sem ?m=,
+// a home mostra o formulario padrao de proposta.
+export const MATERIAL_PADRAO = 'PUBLICO';

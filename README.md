@@ -97,7 +97,9 @@ GSAP falhar, o formulário continua funcionando e visível.
 
 ## Funil orgânico: materiais, quiz e Raio-X
 
-Home com `?m=<palavra>` entra em modo funil. O envio gera um `lead_id` (uuid),
+Home com `?m=<palavra>` entra em modo funil. Sem `?m=`, vale `MATERIAL_PADRAO`
+(`src/config.js`, hoje `PUBLICO`): o link puro do domínio já abre o funil.
+Com `MATERIAL_PADRAO = ''`, a home volta ao formulário padrão de proposta. O envio gera um `lead_id` (uuid),
 manda junto com o cadastro e redireciona para
 `/entrega/?m=<PALAVRA>&q=<0|1>&s=<segmento>&l=<lead_id>`.
 `s` = `construtora | imobiliaria | corretor | outro`.
