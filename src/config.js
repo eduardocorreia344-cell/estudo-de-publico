@@ -24,7 +24,7 @@ export const RESPOSTAS_NO_FORMSPREE = false;
 
 export const ORIGEM = 'funil-ia';
 
-// Material aberto quando o link chega sem ?m= (ex.: o link puro da Vercel
-// mandado ao lead). Vazio ('') volta ao comportamento original: sem ?m=,
-// a home mostra o formulario padrao de proposta.
+// Material aberto quando o link chega sem ?m=. Preenchido, o build publica
+// a /entrega tambem na raiz do dominio (vite.config.js): o link puro abre
+// direto o quiz deste material. Vazio ('') volta a raiz para a home.
 export const MATERIAL_PADRAO = 'PUBLICO';

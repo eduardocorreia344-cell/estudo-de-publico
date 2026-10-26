@@ -97,9 +97,14 @@ GSAP falhar, o formulário continua funcionando e visível.
 
 ## Funil orgânico: materiais, quiz e Raio-X
 
-Home com `?m=<palavra>` entra em modo funil. Sem `?m=`, vale `MATERIAL_PADRAO`
-(`src/config.js`, hoje `PUBLICO`): o link puro do domínio já abre o funil.
-Com `MATERIAL_PADRAO = ''`, a home volta ao formulário padrão de proposta. O envio gera um `lead_id` (uuid),
+**Link para o lead:** com `MATERIAL_PADRAO` preenchido (`src/config.js`, hoje
+`PUBLICO`), o build publica a `/entrega` também na raiz. O link puro do domínio
+abre direto o quiz desse material, sem formulário; sem `?l=`, cada navegador
+ganha um id próprio (`localStorage`), que vai nos envios ao Make. Sem `?q=`,
+aparece o bloco de não qualificado. Com `MATERIAL_PADRAO = ''`, a raiz volta a
+ser a home. Em `npm run dev` a raiz é sempre a home.
+
+Home com `?m=<palavra>` entra em modo funil. O envio gera um `lead_id` (uuid),
 manda junto com o cadastro e redireciona para
 `/entrega/?m=<PALAVRA>&q=<0|1>&s=<segmento>&l=<lead_id>`.
 `s` = `construtora | imobiliaria | corretor | outro`.

@@ -20,9 +20,10 @@ import '../styles/entrega.css';
 import { marked } from 'marked';
 import { materialAtivo, materialProximo, buscarMaterial, temProximo, carregarQuiz } from '../data/materiais.js';
 import { TEXTO_SEGMENTO } from './funil.js';
-import { WHATSAPP_NUMERO, AGENDA_URL, INSTAGRAM_URL } from '../config.js';
+import { WHATSAPP_NUMERO, AGENDA_URL, INSTAGRAM_URL, MATERIAL_PADRAO } from '../config.js';
 import { estadoMaterial } from './armazem.js';
 import { h, linkWhatsapp, pixelContato } from './modelo.js';
+import { novoId } from './envio.js';
 
 // Botao fixo de cada bloco de fechamento. O diagnostico so sai pela Agenda.
 const BOTAO_FECHAMENTO = {
@@ -39,10 +40,21 @@ const ROTULO_SECAO = {
 const $ = id => document.getElementById(id);
 
 const q = new URLSearchParams(location.search);
-const palavra = (q.get('m') || '').trim();
+// Sem ?m=, abre MATERIAL_PADRAO: o link puro do dominio cai direto aqui.
+const palavra = (q.get('m') || MATERIAL_PADRAO || '').trim();
 const qualificado = q.get('q') === '1';
 const segmento = TEXTO_SEGMENTO[(q.get('s') || '').trim().toLowerCase()] || '';
-const leadId = ((q.get('l') || '').match(/^[\w-]{1,64}$/) || [''])[0];
+const leadId = ((q.get('l') || '').match(/^[\w-]{1,64}$/) || [''])[0] || idDoNavegador();
+
+/** Sem ?l= (link direto, sem cadastro): um id por navegador, guardado. */
+function idDoNavegador(){
+  const chave = 'provecta:lead_id';
+  try{
+    let id = localStorage.getItem(chave);
+    if(!id){ id = novoId(); localStorage.setItem(chave, id); }
+    return id;
+  }catch(e){ return novoId(); }
+}
 
 const material = materialAtivo(palavra);
 
